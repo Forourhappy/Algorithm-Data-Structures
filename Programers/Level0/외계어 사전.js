@@ -1,4 +1,4 @@
 function solution(spell, dic) {
-	var answer = 0;
-	return answer;
+	const spellSet = new Set(...spell);
+	spellSet.add();
 }
