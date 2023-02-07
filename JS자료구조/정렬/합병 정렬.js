@@ -31,8 +31,11 @@ const mergeSort = arr => {
 	// 배열의 요소가 0이나 1개일 때까지 나눈다.
 	if (arr.length <= 1) return arr;
 	let mid = Math.floor(arr.length / 2);
+	// 배열의 왼쪽부터 나누기 시작
 	let left = mergeSort(arr.slice(0, mid));
+	// 왼쪽 리프를 나눈 뒤, 오른쪽을 나누기 시작
 	let right = mergeSort(arr.slice(mid));
 
+	// 정렬한 배열을 리턴
 	return merge(left, right);
 };
