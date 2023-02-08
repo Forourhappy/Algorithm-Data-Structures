@@ -34,3 +34,12 @@ function quickSort(arr, left = 0, right = arr.length) {
 	}
 	return arr;
 }
+
+// 시간 복잡도
+// 최선: O(n log n)
+// 평균: O(n log n)
+// 최악: O(n^2)
+// 이미 정렬된 배열을 정렬할 경우, 탐색에 n, 정렬에 n의 시간을 소요.
+
+// 공간 복잡도
+// O(log n)

@@ -39,3 +39,11 @@ const mergeSort = arr => {
 	// 정렬한 배열을 리턴
 	return merge(left, right);
 };
+
+// 시간 복잡도
+// 최선: O(n log n)
+// 평균: O(n log n)
+// 최악: O(n log n)
+
+// 공간 복잡도
+// O(n)
