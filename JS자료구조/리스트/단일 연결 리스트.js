@@ -102,6 +102,35 @@ class SinglyLinkedList {
     }
     return false;
   }
+
+  insert(index, val) {
+    if(index < 0 || index > this.length) return false;
+    if(index === this.length) return !!this.push(val);
+    if(index === 0) return !!this.unshift(val);
+
+    const newNode = new Node(val);
+    let prev = this.get(index-1);
+    // 추가할 노드의 다음 노드부터 임시 저장
+    const temp = prev.next;
+    // 새로운 노드 추가
+    prev.next = newNode;
+    // 추가한 노드에 다음 노드들 붙이기
+    newNode.next = temp;
+    this.length++
+    return true;
+  }
+
+  remove(index) {
+    if(index < 0 || index >= this.length) return new Error("유효하지 않은 인덱스입니다.");
+    if(index === 0) return this.shift(0);
+    if(index === this.length-1) return this.pop();
+
+    let prev = get(this.length-1);
+    const removedNode = prev.next;
+    prev.next = removedNode.next;
+    this.length--;
+    return removedNode;
+  }
 }
 
 const node = new SinglyLinkedList();
