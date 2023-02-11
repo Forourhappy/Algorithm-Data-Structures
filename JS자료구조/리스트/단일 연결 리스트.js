@@ -131,6 +131,31 @@ class SinglyLinkedList {
     this.length--;
     return removedNode;
   }
+
+  reverse() {
+    // LinkedList 저장
+    let node = this.head;
+    // head와 tail의 위치 바꾸기
+    this.head = this.tail;
+    this.tail = node;
+    // 연결을 끊고 이전으로 연결하기 위해서는 이전 값과 다음 값이 필요
+    // prev는 첫 번째 반복 때, tail.next의 값으로 지정
+    // 이 때, tail.next는 null이어야 하므로 null로 초기화
+    let prev = null;
+    let next;
+    for(let i = 0; i < this.length; i++) {
+      // next에 reverse 하지 않은 나머지 List 저장
+      next = node.next;
+      // node.next를 이전 값으로 재지정
+      // 기존 연결과 반대 방향으로 연결
+      node.next = prev;
+      // prev를 다음 값으로 옮겨서 tail로 연결되는 노드들을 기억
+      prev = node;
+      // node를 다음 값으로 옮겨서 다음 반복 때 이전 값으로 지정할 값을 가리키기
+      node = next;
+    }
+    return this;
+  }
 }
 
 const node = new SinglyLinkedList();
