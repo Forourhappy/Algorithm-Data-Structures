@@ -61,3 +61,5 @@ class BinarySearchTree {
 // Searching - O(log n)
 
 // 단, 연결 리스트의 형태로 이루어질 수도 있기 때문에 보장할 수는 없음
+
+export default BinarySearchTree;
