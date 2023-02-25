@@ -6,7 +6,6 @@
 
 // 간소하게 string만 다룬다
 
-//
 // 무작위성을 더 높일 때(버킷에 들어가는 데이터를 더 흩뿌릴 때)
 // 짝수의 값을 가졋을 때보다 소수의 값을 가졌을 때,
 // 와 비교해서 충돌값이 매우 적어진다.
@@ -48,13 +47,68 @@ class HashTable {
     set(key, value) {
         let index = this._hash(key);
         // index에 아무것도 없다면 빈 배열 삽입
-        if(!this.keyMap[index]) {
+        if (!this.keyMap[index]) {
             this.keyMap[index] = [];
         }
         this.keyMap[index].push([key, value]);
         return index;
     }
+
+    get(key) {
+        // key를 hash 처리
+        let index = this._hash(key);
+        // 그 값이 keyMap에 존재한다면,
+        if (this.keyMap[index]) {
+            // Separate Chaining으로 저장했으므로 안에 있는 요소를 탐색
+            for (let i = 0; i < this.keyMap[index].length; i++) {
+                // key를 확인해서 같다면
+                if (this.keyMap[index][i][0] === key) {
+                    // value를 반환
+                    return this.keyMap[index][i][1];
+                }
+            }
+        }
+        return undefined;
+    }
+
+    values() {
+        let valuesArr = [];
+        for (let i = 0; i < this.keyMap.length; i++) {
+            if (this.keyMap[i]) {
+                for (let j = 0; j < this.keyMap[i].length; j++) {
+                    if (!valuesArr.includes(this.keyMap[i][j][1])) {
+                        valuesArr.push(this.keyMap[i][j][1]);
+                    }
+                }
+            }
+        }
+        return valuesArr;
+    }
+
+    // 여기서는 겹치는 key에 대해서 처리를 해주지 않아 key가 두 번 나온다
+    // 대부분의 프로그래밍 언어에서는 겹치는 key는 덮어 쓰여진다
+    keys() {
+        let keysArr = [];
+        for (let i = 0; i < this.keyMap.length; i++) {
+            if (this.keyMap[i]) {
+                for (let j = 0; j < this.keyMap[i].length; j++) {
+                    if (!keysArr.includes(this.keyMap[i][j][0])) {
+                        keysArr.push(this.keyMap[i][j][0]);
+                    }
+                }
+            }
+        }
+        return keysArr;
+    }
 }
+
+// 시간 복잡도 (평균적으로)
+// Insertion - O(1)
+// Deletion - O(1)
+// Access - O(1)
+
+// hash table에 한 인덱스에 들어가는 경우(매우 좋지 못하게 만들어졌을 때)
+// O(n)의 시간 복잡도를 가진다 (리스트와 같음)
 
 const hashTable = new HashTable();
 console.log(
@@ -62,5 +116,6 @@ console.log(
     hashTable.set("dogs", "cats"),
     hashTable.set("wooooooow", "loooooool"),
     hashTable.set("i love", "chicken"),
+    hashTable.get("dogs")
 )
 
