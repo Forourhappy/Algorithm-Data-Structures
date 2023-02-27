@@ -58,3 +58,30 @@
 // - 모든 간선을 순회할 때 빠르게 가능
 // 행렬
 // - 특정 간선이 있는지 확인이 빠름
+
+// 간단하게 기초만 작성
+class Graph {
+    constructor() {
+        this.adjacencyList = {};
+    }
+
+    addVertex(vertex) {
+        if (!this.adjacencyList[vertex]) {
+            this.adjacencyList[vertex] = [];
+        }
+    }
+
+    addEdge(v1, v2) {
+        this.adjacencyList[v1].push(v2);
+        this.adjacencyList[v2].push(v2);
+    }
+
+    removeEdge(vertex1, vertex2) {
+        this.adjacencyList[vertex1] = this.adjacencyList[vertex1].filter(
+            v => v !== vertex2
+        )
+        this.adjacencyList[vertex2] = this.adjacencyList[vertex2].filter(
+            v => v !== vertex1
+        )
+    }
+}
