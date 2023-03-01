@@ -76,12 +76,23 @@ class Graph {
         this.adjacencyList[v2].push(v2);
     }
 
+
     removeEdge(vertex1, vertex2) {
         this.adjacencyList[vertex1] = this.adjacencyList[vertex1].filter(
             v => v !== vertex2
-        )
+        );
         this.adjacencyList[vertex2] = this.adjacencyList[vertex2].filter(
             v => v !== vertex1
-        )
+        );
+    }
+
+    removeVertex(vertex) {
+        // 제거할 정점에 연결된 간선들을 순회하며 삭제
+        while (this.adjacencyList[vertex].length) {
+            const adjacentVertex = this.adjacencyList[vertex].pop();
+            this.removeEdge(vertex, adjacentVertex);
+        }
+        // 빈 배열만 남은 키 삭제
+        delete this.adjacencyList[vertex];
     }
 }
