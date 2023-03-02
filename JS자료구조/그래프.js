@@ -97,9 +97,30 @@ class Graph {
     }
 
 //     재귀적 용법의 DFS
-//     1. 시작할 노드를 정한 후, 결과 배열을 만든다
+//     1. 시작할 정점를 정한 후, 결과 배열을 만든다
 //     2. 방문한 정점을 기록할 객체를 만든다
 //     3. 정점 방문을 수행할 헬퍼 함수를 만든다.
-
+    depthFirstRecursive(start) {
+        // 결과 배열
+        const result = [];
+        // 방문한 정점 배열
+        const visited = {};
+        // this 바인딩 문제로 변수 선언
+        const adjacencyList = this.adjacencyList;
+        (function dfs(vertex) {
+            // 정점이 없으면 null 반환
+            if (!vertex) return null;
+            // 정점을 방문 처리
+            visited[vertex] = true;
+            // 결과 배열에 정점 추가
+            result.push(vertex);
+            // 인접 리스트에 방문하지 않은 정점이 있다면 dfs 재귀 호출
+            adjacencyList[vertex].forEach(neighbor => {
+                if (!visited[neighbor]) {
+                    return dfs(neighbor);
+                }
+            });
+        })(start);
+    }
 
 }
