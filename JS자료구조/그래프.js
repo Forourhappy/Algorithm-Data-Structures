@@ -121,6 +121,44 @@ class Graph {
                 }
             });
         })(start);
+        return result;
     }
 
+    // 반복적 용법의 DFS
+    depthFirstIterative(start) {
+        // 앞으로 방문해야 하는 정점들
+        const stack = [start];
+        // 방문한 순서대로 담는 배열
+        const result = [];
+        // 방문했는지 판단
+        const visited = {};
+        // 현재 정점
+        let currentVertex;
+        visited[start] = true;
+        // 방문할 정점이 없을 때까지
+        while (stack.length) {
+            // 스택에서 pop하는 것에서부터 시작
+            currentVertex = stack.pop();
+            // 결과 배열에 넣은 후,
+            result.push(currentVertex);
+            // 인접한 정점들을 살펴보고 방문하지 않았다면 stack에 추가
+            this.adjacencyList[currentVertex].forEach(neighbor => {
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true;
+                    stack.push(neighbor);
+                }
+            });
+        }
+        return result;
+    }
 }
+
+const g = new Graph();
+g.addVertex('A');
+g.addVertex('B');
+g.addVertex('C');
+g.addVertex('D');
+g.addEdge('A', 'C');
+g.addEdge('A', 'B');
+g.addEdge('C', 'D');
+console.log(g.depthFirstRecursive('A'));
