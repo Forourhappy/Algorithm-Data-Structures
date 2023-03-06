@@ -61,6 +61,8 @@
 
 // 간단하게 기초만 작성
 class Graph {
+
+
     constructor() {
         this.adjacencyList = {};
     }
@@ -76,7 +78,6 @@ class Graph {
         this.adjacencyList[v2].push(v2);
     }
 
-
     removeEdge(vertex1, vertex2) {
         this.adjacencyList[vertex1] = this.adjacencyList[vertex1].filter(
             v => v !== vertex2
@@ -85,6 +86,10 @@ class Graph {
             v => v !== vertex1
         );
     }
+
+//     재귀적 용법의 DFS
+//     1. 시작할 정점를 정한 후, 결과 배열을 만든다
+//     2. 방문한 정점을 기록할 객체를 만든다
 
     removeVertex(vertex) {
         // 제거할 정점에 연결된 간선들을 순회하며 삭제
@@ -96,9 +101,6 @@ class Graph {
         delete this.adjacencyList[vertex];
     }
 
-//     재귀적 용법의 DFS
-//     1. 시작할 정점를 정한 후, 결과 배열을 만든다
-//     2. 방문한 정점을 기록할 객체를 만든다
 //     3. 정점 방문을 수행할 헬퍼 함수를 만든다.
     depthFirstRecursive(start) {
         // 결과 배열
@@ -151,14 +153,26 @@ class Graph {
         }
         return result;
     }
-}
 
-const g = new Graph();
-g.addVertex('A');
-g.addVertex('B');
-g.addVertex('C');
-g.addVertex('D');
-g.addEdge('A', 'C');
-g.addEdge('A', 'B');
-g.addEdge('C', 'D');
-console.log(g.depthFirstRecursive('A'));
+    breadthFirst(start) {
+        // DFS와는 다르게 queue 구조를 사용
+        const queue = [start];
+        const result = [];
+        const visited = {};
+        let currentVertex;
+        visited[start] = true;
+
+        while (queue.length) {
+            currentVertex = queue.shift();
+            result.push(currentVertex);
+
+            this.adjacencyList[currentVertex].forEach(neighbor => {
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true;
+                    queue.push(neighbor);
+                }
+            });
+            return result;
+        }
+    }
+}
