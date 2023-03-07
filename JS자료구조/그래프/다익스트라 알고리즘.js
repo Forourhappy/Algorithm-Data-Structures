@@ -8,3 +8,20 @@
 // 네트워크 라우팅
 // 전염병이 퍼질 때의 루트 - 속도
 // 항공 티켓 - 가격 고려
+
+// 가중치 그래프
+class WeightedGraph {
+    constructor() {
+        this.adjacencyList = {};
+    }
+
+    adVertex(vertex) {
+        if (!this.adjacencyList[vertex]) this.adjacencyList[vertex] = [];
+    }
+
+    addEdge(vertex1, vertex2, weight) {
+        this.adjacencyList[vertex1].push({node: vertex2, weight});
+        this.adjacencyList[vertex2].push({node: vertex1, weight});
+    }
+    
+}
