@@ -1,4 +1,3 @@
-
 // 우선순위 큐
 // Min Binary Heap 사용
 // 각 요소가 그에 해당하는 우선순위를 가짐
@@ -10,7 +9,7 @@ class Node {
     }
 }
 
-class PriorityQueue {
+export class PriorityQueue {
     constructor() {
         this.values = [];
     }
